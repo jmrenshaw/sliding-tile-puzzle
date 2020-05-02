@@ -1,11 +1,11 @@
-# Define a function which finds the location of 0 in an 4x4 array and returns it as a tuple (x,y) where the top
+# Define a function which finds the location of a number in an 4x4 array and returns it as a tuple (x,y) where the top
 # left corner is (0,0).
-def find_zero(array):
+def find_number(number, array):
     location = (0,0)
     y = 0
     for row in array:
-        if row.count(0) == 1:
-            location = (row.index(0), y)
+        if row.count(number) == 1:
+            location = (row.index(number), y)
         else:
             y += 1
     return location
@@ -15,7 +15,7 @@ def find_zero(array):
 
 def move_up(array):
     # If the 0 is in the top row return an error code
-    x, y = find_zero(array)
+    x, y = find_number(0,array)
     if y == 0:
         return 1
 
@@ -32,7 +32,7 @@ def move_up(array):
 
 def move_down(array):
     # If the 0 is in the bottom row return an error code
-    x, y = find_zero(array)
+    x, y = find_number(0,array)
     if y == 3:
         return 1
 
@@ -49,7 +49,7 @@ def move_down(array):
 
 def move_left(array):
     # If the 0 is in the left column return an error code
-    x, y = find_zero(array)
+    x, y = find_number(0,array)
     if x == 0:
         return 1
 
@@ -66,7 +66,7 @@ def move_left(array):
 
 def move_right(array):
     # If the 0 is in the right column return an error code
-    x, y = find_zero(array)
+    x, y = find_number(0,array)
     if x == 3:
         return 1
 

@@ -1,11 +1,11 @@
 import unittest
-from puzzle_functions import find_zero, move_up, move_down, move_left, move_right
+from puzzle_functions import find_number, move_up, move_down, move_left, move_right
 
-class FindZeroTestCase(unittest.TestCase):
-    def test_find_zero(self):
+class FindNumberTestCase(unittest.TestCase):
+    def test_number_zero(self):
         test_array = [[5,2,7,3],[9,1,15,4],[10,6,8,12],[13,11,14,0]]
         zero_location = (3,3)
-        self.assertEqual(zero_location, find_zero(test_array))
+        self.assertEqual(zero_location, find_number(0,test_array))
 
 class MoveUp(unittest.TestCase):
     def test_top_row(self):
