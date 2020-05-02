@@ -15,17 +15,68 @@ def find_zero(array):
 
 def move_up(array):
     # If the 0 is in the top row return an error code
-    if array[0].count(0) == 1:
+    x, y = find_zero(array)
+    if y == 0:
         return 1
 
     # If the 0 is not in the top row swap the 0 with the number above it.
     else:
-        x, y = find_zero(array)
         # Find the number to swap with
         number_to_swap = array[y-1][x]
         # Set the 0 to the new number
         array[y][x] = number_to_swap
         # Set the number to swap with to 0.
         array[y-1][x] = 0
+
+    return array
+
+def move_down(array):
+    # If the 0 is in the bottom row return an error code
+    x, y = find_zero(array)
+    if y == 3:
+        return 1
+
+    # If the 0 is not in the bottom row swap the 0 with the number below it.
+    else:
+        # Find the number to swap with
+        number_to_swap = array[y+1][x]
+        # Set the 0 to the new number
+        array[y][x] = number_to_swap
+        # Set the number to swap with to 0.
+        array[y+1][x] = 0
+
+    return array
+
+def move_left(array):
+    # If the 0 is in the left column return an error code
+    x, y = find_zero(array)
+    if x == 0:
+        return 1
+
+    # If the 0 is not in the left column swap the 0 with the number to the left of it.
+    else:
+        # Find the number to swap with
+        number_to_swap = array[y][x-1]
+        # Set the 0 to the new number
+        array[y][x] = number_to_swap
+        # Set the number to swap with to 0.
+        array[y][x-1] = 0
+
+    return array
+
+def move_right(array):
+    # If the 0 is in the right column return an error code
+    x, y = find_zero(array)
+    if x == 3:
+        return 1
+
+    # If the 0 is not in the right column swap the 0 with the number to the right of it.
+    else:
+        # Find the number to swap with
+        number_to_swap = array[y][x+1]
+        # Set the 0 to the new number
+        array[y][x] = number_to_swap
+        # Set the number to swap with to 0.
+        array[y][x+1] = 0
 
     return array
