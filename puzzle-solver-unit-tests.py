@@ -1,5 +1,6 @@
 import unittest
-from puzzle_functions import find_number, move_up, move_down, move_left, move_right
+from puzzle_functions import find_number, move_up, move_down, move_left, move_right, measure_std_dev
+import numpy as np
 
 class FindNumberTestCase(unittest.TestCase):
     def test_number_zero(self):
@@ -47,6 +48,16 @@ class MoveRight(unittest.TestCase):
         result_array = [[5,2,7,3],[9,1,15,4],[10,6,8,0],[13,11,14,12]]
         self.assertEqual(result_array, move_right(test_array))
 
+class MeasureStdDev(unittest.TestCase):
+    def test_solved(self):
+        result_array = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]]
+        input_array = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]]
+        self.assertEqual(0,measure_std_dev(input_array, result_array))
+
+    def test_one_move_left(self):
+        result_array = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]]
+        input_array = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 0, 15]]
+        self.assertEqual(np.std([0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1]), measure_std_dev(input_array, result_array))
 
 if __name__ == '__main__':
     unittest.main()

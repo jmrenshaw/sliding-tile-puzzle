@@ -1,3 +1,5 @@
+import numpy as np
+
 # Define a function which finds the location of a number in an 4x4 array and returns it as a tuple (x,y) where the top
 # left corner is (0,0).
 def find_number(number, array):
@@ -80,3 +82,13 @@ def move_right(array):
         array[y][x+1] = 0
 
     return array
+
+def measure_std_dev(input_array, result_array):
+    measure_array = []
+    for i in range(16):
+        input_x, input_y = find_number(i,input_array)
+        result_x, result_y = find_number(i, result_array)
+        distance = abs(result_x - input_x) + abs(result_y - input_y)
+        measure_array.append(distance)
+
+    return np.std(measure_array)
