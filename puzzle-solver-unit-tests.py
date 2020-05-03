@@ -1,5 +1,5 @@
 import unittest
-from puzzle_functions import find_number, move_up, move_down, move_left, move_right, measure_std_dev
+from puzzle_functions import find_number, move_up, move_down, move_left, move_right, measure_mean_std_dev
 import numpy as np
 
 class FindNumberTestCase(unittest.TestCase):
@@ -52,12 +52,23 @@ class MeasureStdDev(unittest.TestCase):
     def test_solved(self):
         result_array = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]]
         input_array = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]]
-        self.assertEqual(0,measure_std_dev(input_array, result_array))
+        self.assertEqual(0,measure_mean_std_dev(input_array, result_array)["std_dev"])
 
     def test_one_move_left(self):
         result_array = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]]
         input_array = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 0, 15]]
-        self.assertEqual(np.std([0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1]), measure_std_dev(input_array, result_array))
+        self.assertEqual(np.std([0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1]), measure_mean_std_dev(input_array, result_array)["std_dev"])
+
+class MeasureMean(unittest.TestCase):
+    def test_solved(self):
+        result_array = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]]
+        input_array = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]]
+        self.assertEqual(0,measure_mean_std_dev(input_array, result_array)["mean"])
+
+    def test_one_move_left(self):
+        result_array = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]]
+        input_array = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 0, 15]]
+        self.assertEqual(np.mean([0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1]), measure_mean_std_dev(input_array, result_array)["mean"])
 
 if __name__ == '__main__':
     unittest.main()

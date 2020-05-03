@@ -83,7 +83,7 @@ def move_right(array):
 
     return array
 
-def measure_std_dev(input_array, result_array):
+def measure_mean_std_dev(input_array, result_array):
     measure_array = []
     for i in range(16):
         input_x, input_y = find_number(i,input_array)
@@ -91,4 +91,4 @@ def measure_std_dev(input_array, result_array):
         distance = abs(result_x - input_x) + abs(result_y - input_y)
         measure_array.append(distance)
 
-    return np.std(measure_array)
+    return {"mean":np.mean(measure_array), "std_dev":np.std(measure_array)}
