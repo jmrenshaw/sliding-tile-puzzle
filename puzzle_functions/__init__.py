@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 
 # Define a function which finds the location of a number in an 4x4 array and returns it as a tuple (x,y) where the top
 # left corner is (0,0).
@@ -90,30 +91,34 @@ def measure_mean_std_dev(input_array, result_array):
         result_x, result_y = find_number(i, result_array)
         distance = abs(result_x - input_x) + abs(result_y - input_y)
         measure_array.append(distance)
-
     return {"mean":np.mean(measure_array), "std_dev":np.std(measure_array)}
 
 def measure_move(input_array, result_array, direction):
+    copy_array = copy.deepcopy(input_array)
     if direction == "up":
-        if move_up(input_array) == 1:
+        moved_array = move_up(copy_array)
+        if moved_array == 1:
             return 1
         else:
-            return measure_mean_std_dev(move_up(input_array), result_array)
+            return measure_mean_std_dev(moved_array, result_array)
     elif direction == "down":
-        if move_down(input_array) == 1:
+        moved_array = move_down(copy_array)
+        if moved_array == 1:
             return 1
         else:
-            return measure_mean_std_dev(move_down(input_array), result_array)
+            return measure_mean_std_dev(moved_array, result_array)
     elif direction == "left":
-        if move_left(input_array) == 1:
+        moved_array = move_left(copy_array)
+        if moved_array == 1:
             return 1
         else:
-            return measure_mean_std_dev(move_left(input_array), result_array)
+            return measure_mean_std_dev(moved_array, result_array)
     elif direction == "right":
-        if move_right(input_array) == 1:
+        moved_array = move_right(copy_array)
+        if moved_array == 1:
             return 1
         else:
-            return measure_mean_std_dev(move_right(input_array), result_array)
+            return measure_mean_std_dev(moved_array, result_array)
 
 def measure_all_moves(input_array, result_array):
     results = {"up":0, "down":0, "left":0, "right":0}
