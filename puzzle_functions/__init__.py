@@ -92,3 +92,33 @@ def measure_mean_std_dev(input_array, result_array):
         measure_array.append(distance)
 
     return {"mean":np.mean(measure_array), "std_dev":np.std(measure_array)}
+
+def measure_move(input_array, direction):
+    if direction == "up":
+        if move_up(input_array) == 1:
+            return 1
+        else:
+            return measure_mean_std_dev(move_up(input_array))
+    elif direction == "down":
+        if move_down(input_array) == 1:
+            return 1
+        else:
+            return measure_mean_std_dev(move_down(input_array))
+    elif direction == "left":
+        if move_left(input_array) == 1:
+            return 1
+        else:
+            return measure_mean_std_dev(move_left(input_array))
+    elif direction == "right":
+        if move_right(input_array) == 1:
+            return 1
+        else:
+            return measure_mean_std_dev(move_right(input_array))
+
+def measure_all_moves(input_array):
+    results = {"up":0, "down":0, "left":0, "right":0}
+    results["up"] = measure_move(input_array, "up")
+    results["down"] = measure_move(input_array, "down")
+    results["left"] = measure_move(input_array, "left")
+    results["right"] = measure_move(input_array, "right")
+    return results
