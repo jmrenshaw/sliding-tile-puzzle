@@ -1,5 +1,6 @@
 import numpy as np
 import copy
+import time
 
 # Define a function which finds the location of a number in an 4x4 array and returns it as a tuple (x,y) where the top
 # left corner is (0,0).
@@ -127,3 +128,59 @@ def measure_all_moves(input_array, result_array):
     results["left"] = measure_move(input_array, result_array, "left")
     results["right"] = measure_move(input_array, result_array, "right")
     return results
+
+def solved(input_array, result_array):
+    if input_array == result_array:
+        return True
+    else:
+        return False
+
+def solve_using_mean(input_array, result_array):
+    moving_array = copy.deepcopy(input_array)
+    i = 0
+    move_list = []
+    while True:
+        opposite_moves = {"up":"down","down":"up","left":"right","right":"left"}
+        if solved(moving_array,result_array):
+            break
+        measured_moves = measure_all_moves(moving_array, result_array)
+        key_list = ["up","down","left","right"]
+        for key in key_list:
+            if measured_moves[key] == 1:
+                measured_moves.pop(key)
+            else:
+                continue
+        if move_list:
+            measured_moves.pop(opposite_moves[move_list[-1]])
+
+        first_iteration = True
+        for key in measured_moves:
+            if first_iteration:
+                lowest_mean = measured_moves[key]["mean"].item()
+                smallest_key = key
+                first_iteration = False
+            else:
+                current_mean = measured_moves[key]["mean"].item()
+                if current_mean < lowest_mean:
+                    smallest_key = key
+
+        if smallest_key == "up":
+            move_up(moving_array)
+            move_list.append("up")
+        if smallest_key == "down":
+            move_down(moving_array)
+            move_list.append("down")
+        if smallest_key == "left":
+            move_left(moving_array)
+            move_list.append("left")
+        if smallest_key == "right":
+            move_right(moving_array)
+            move_list.append("right")
+
+        #print(find_number(0,moving_array))
+        #time.sleep(1)
+
+        i += 1
+        if i == 1000:
+            break
+    return i
