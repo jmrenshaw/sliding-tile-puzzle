@@ -184,3 +184,53 @@ def solve_using_mean(input_array, result_array):
         if i == 1000:
             break
     return i
+
+def solve_using_stddev(input_array, result_array):
+    moving_array = copy.deepcopy(input_array)
+    i = 0
+    move_list = []
+    while True:
+        opposite_moves = {"up":"down","down":"up","left":"right","right":"left"}
+        if solved(moving_array,result_array):
+            break
+        measured_moves = measure_all_moves(moving_array, result_array)
+        key_list = ["up","down","left","right"]
+        for key in key_list:
+            if measured_moves[key] == 1:
+                measured_moves.pop(key)
+            else:
+                continue
+        if move_list:
+            measured_moves.pop(opposite_moves[move_list[-1]])
+
+        first_iteration = True
+        for key in measured_moves:
+            if first_iteration:
+                lowest_stddev = measured_moves[key]["std_dev"].item()
+                smallest_key = key
+                first_iteration = False
+            else:
+                current_stddev = measured_moves[key]["std_dev"].item()
+                if current_stddev < lowest_stddev:
+                    smallest_key = key
+
+        if smallest_key == "up":
+            move_up(moving_array)
+            move_list.append("up")
+        if smallest_key == "down":
+            move_down(moving_array)
+            move_list.append("down")
+        if smallest_key == "left":
+            move_left(moving_array)
+            move_list.append("left")
+        if smallest_key == "right":
+            move_right(moving_array)
+            move_list.append("right")
+
+        #print(find_number(0,moving_array))
+        #time.sleep(1)
+
+        i += 1
+        if i == 1000:
+            break
+    return i
