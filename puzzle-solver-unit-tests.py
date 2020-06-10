@@ -1,5 +1,5 @@
 import unittest
-from puzzle_functions import find_number, move, measure_mean_std_dev
+from puzzle_functions import find_number, move, measure_mean_std_dev, search_moves
 import numpy as np
 
 class FindNumberTestCase(unittest.TestCase):
@@ -66,6 +66,18 @@ class MeasureMean(unittest.TestCase):
         result_array = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]]
         input_array = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 0, 15]]
         self.assertEqual(np.mean([0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1]), measure_mean_std_dev(input_array, result_array)["mean"])
+
+class MeasureSearch(unittest.TestCase):
+    def test_search_moves(self):
+        input_array = [[1,2,3,4],[5,6,7,8],[9,10,11,0],[13,14,15,12]]
+        result_array = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]]
+        result_dict = {
+            'l':{'array':[[1,2,3,4],[5,6,7,8],[9,10,0,11],[13,14,15,12]], 'exhausted':False, 'solved':False},
+            'r':False,
+            'u':{'array':[[1,2,3,4],[5,6,7,0],[9,10,11,8],[13,14,15,12]], 'exhausted':False, 'solved':False},
+            'd':{'array':[[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]], 'exhausted':False, 'solved':True}
+        }
+        self.assertEqual(search_moves(input_array, result_array), result_dict)
 
 if __name__ == '__main__':
     unittest.main()

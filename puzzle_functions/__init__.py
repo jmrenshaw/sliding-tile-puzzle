@@ -216,3 +216,22 @@ def solve_using_stddev(input_array, result_array):
         if i == 1000:
             break
     return i
+
+def search_moves(input_array, result_array):
+    result_dict = {}
+    direction_list = ['u','d','l','r']
+    for direction in direction_list:
+        working_array = copy.deepcopy(input_array)
+        moved_array = move(working_array, direction)
+        if moved_array == 1:
+            result_dict[direction] = False
+        else:
+            result_dict[direction] = {}
+            result_dict[direction]['array'] = moved_array
+
+            ## TODO need to add in the exhausted logic, i.e. test for if this array has been seen before.
+            result_dict[direction]['exhausted'] = False
+
+            result_dict[direction]['solved'] = solved(moved_array, result_array)
+
+    return result_dict
