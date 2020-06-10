@@ -1,5 +1,5 @@
 import unittest
-from puzzle_functions import find_number, move_up, move_down, move_left, move_right, measure_mean_std_dev
+from puzzle_functions import find_number, move, measure_mean_std_dev
 import numpy as np
 
 class FindNumberTestCase(unittest.TestCase):
@@ -8,45 +8,42 @@ class FindNumberTestCase(unittest.TestCase):
         zero_location = (3,3)
         self.assertEqual(zero_location, find_number(0,test_array))
 
-class MoveUp(unittest.TestCase):
+class Move(unittest.TestCase):
     def test_top_row(self):
         test_array = [[5,0,7,3],[9,1,15,4],[10,6,8,12],[13,11,14,2]]
-        self.assertEqual(1, move_up(test_array))
+        self.assertEqual(1, move(test_array,'u'))
 
     def test_move_up(self):
         test_array = [[5,2,7,3],[9,1,15,4],[10,6,8,12],[13,11,14,0]]
         result_array = [[5,2,7,3],[9,1,15,4],[10,6,8,0],[13,11,14,12]]
-        self.assertEqual(result_array, move_up(test_array))
+        self.assertEqual(result_array, move(test_array,'u'))
 
-class MoveDown(unittest.TestCase):
     def test_bottom_row(self):
         test_array = [[5,11,7,3],[9,1,15,4],[10,6,8,12],[13,0,14,2]]
-        self.assertEqual(1, move_down(test_array))
+        self.assertEqual(1, move(test_array,'d'))
 
     def test_move_down(self):
         test_array = [[5,2,7,3],[9,1,15,4],[10,6,8,0],[13,11,14,12]]
         result_array = [[5,2,7,3],[9,1,15,4],[10,6,8,12],[13,11,14,0]]
-        self.assertEqual(result_array, move_down(test_array))
+        self.assertEqual(result_array, move(test_array,'d'))
 
-class MoveLeft(unittest.TestCase):
     def test_left_column(self):
         test_array = [[5,11,7,3],[9,1,15,4],[10,6,8,12],[0,13,14,2]]
-        self.assertEqual(1, move_left(test_array))
+        self.assertEqual(1, move(test_array,'l'))
 
     def test_move_left(self):
         test_array = [[5,2,7,3],[9,1,15,4],[10,6,8,0],[13,11,14,12]]
         result_array = [[5,2,7,3],[9,1,15,4],[10,6,0,8],[13,11,14,12]]
-        self.assertEqual(result_array, move_left(test_array))
+        self.assertEqual(result_array, move(test_array,'l'))
 
-class MoveRight(unittest.TestCase):
     def test_right_column(self):
         test_array = [[5,11,7,3],[9,1,15,4],[10,6,8,12],[2,13,14,0]]
-        self.assertEqual(1, move_right(test_array))
+        self.assertEqual(1, move(test_array,'r'))
 
     def test_move_right(self):
         test_array = [[5,2,7,3],[9,1,15,4],[10,6,0,8],[13,11,14,12]]
         result_array = [[5,2,7,3],[9,1,15,4],[10,6,8,0],[13,11,14,12]]
-        self.assertEqual(result_array, move_right(test_array))
+        self.assertEqual(result_array, move(test_array,'r'))
 
 class MeasureStdDev(unittest.TestCase):
     def test_solved(self):
